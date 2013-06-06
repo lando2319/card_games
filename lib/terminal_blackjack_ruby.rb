@@ -1,6 +1,3 @@
-## Blackjack in Ruby
- 
- 
 def blackjack
   puts "============================="
   puts "Welcome to Terminal Blackjack"
@@ -30,10 +27,25 @@ def blackjack
   puts "What would you like to do now?"
   puts "'H' for Hit || 'S' for Stand"
   response = gets.chomp
- 
+
   if response == "H"
     puts "H"
    else
     puts "S"
   end
+
+  
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
