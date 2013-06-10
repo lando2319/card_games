@@ -41,7 +41,7 @@ def blackjack
     elsif t.match("K")
       dealers_hand_value << "10"
     elsif t.match("A")
-      dealers_hand_value << "10"
+      dealers_hand_value << "11"
     else
       dealers_hand_value << t
   end
@@ -53,6 +53,8 @@ def blackjack
     dealers_hand_value_num << t.to_i
   end
 
+  dealers_hand_value_num = dealers_hand_value_num.inject(:+)
+  
   puts dealers_hand_value_num
   
 end
