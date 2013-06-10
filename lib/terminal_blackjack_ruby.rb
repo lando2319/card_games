@@ -1,4 +1,3 @@
-def blackjack
   puts "============================="
   puts "Welcome to Terminal Blackjack"
  
@@ -20,14 +19,8 @@ def blackjack
  
   players_hand << stack_of_cards.pop
   dealers_hand << stack_of_cards.pop
- 
-  puts "you have " + players_hand.to_s
- 
   puts "-------------------------"
-  puts "What would you like to do now?"
-  puts "'H' for Hit || 'S' for Stand"
 
-  puts dealers_hand
 
   dealers_hand_value = []
   
@@ -53,21 +46,83 @@ def blackjack
     dealers_hand_value_num << t.to_i
   end
 
-  dealers_hand_value_num = dealers_hand_value_num.inject(:+)
+  dealers_hand_value_num_actual = []
+  dealers_hand_value_num_actual = dealers_hand_value_num.inject(:+)
   
-  puts dealers_hand_value_num
+
+  #PLAYERS LOGIC
+
+
+  players_hand_value = []
   
-end
+  players_hand.each do |t|
+    if t.match("10")
+      players_hand_value << "10"
+    elsif t.match("J")
+      players_hand_value << "10"
+    elsif t.match("Q")
+      players_hand_value << "10"
+    elsif t.match("K")
+      players_hand_value << "10"
+    elsif t.match("A")
+      players_hand_value << "11"
+    else
+      players_hand_value << t
+  end
+  end
 
+  players_hand_value_num = [] 
 
+  players_hand_value.each do |t|
+    players_hand_value_num << t.to_i
+  end
 
+  players_hand_value_num_actual = []
+  players_hand_value_num_actual = players_hand_value_num.inject(:+)
+  
+  if dealers_hand_value_num == 21
+    puts "dealer has blackjack"
+    abort
+  end
 
+  puts "What would you like to do now?"
+  puts "'H' for Hit || 'S' for Stand"
+  puts "you have " + players_hand.to_s
+  puts " or " + players_hand_value_num_actual.to_s
+  stance_response = gets.chomp.upcase
+  
+  @clearing_house_num = []
+  @stack_of_cards = stack_of_cards
+ 
+ def take_a_hit
+  players_hand_value_num_actual = []
+  players_hand_value_num_actual << @stack_of_cards.pop
+  players_hand_value_num_actual.each do |t|  
+  if t.match("10")
+    @clearing_house_num << "10"
+  elsif t.match("J")
+    @clearing_house_num << "10"
+  elsif t.match("Q")
+    @clearing_house_num << "10"
+  elsif t.match("K")
+    @clearing_house_num << "10"
+  elsif t.match("A")
+    @clearing_house_num << "11"
+  else 
+    @clearing_house_num << t
+  end  
+ end
+ end
+ 
+ if stance_response == "H"
+    take_a_hit
+  end
 
+  puts @clearing_house_num
 
+  @clearing_house_num.each do |t|
+    players_hand_value_num_actual = players_hand_value_num_actual + t.to_i
+  end
 
-
-
-
-
-
+  puts players_hand_value_num_actual
 
