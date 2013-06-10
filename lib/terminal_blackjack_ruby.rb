@@ -26,14 +26,34 @@ def blackjack
   puts "-------------------------"
   puts "What would you like to do now?"
   puts "'H' for Hit || 'S' for Stand"
-  response = gets.chomp
 
-  if response == "H"
-    puts "H"
-   else
-    puts "S"
+  puts dealers_hand
+
+  dealers_hand_value = []
+  
+  dealers_hand.each do |t|
+    if t.match("10")
+      dealers_hand_value << "10"
+    elsif t.match("J")
+      dealers_hand_value << "10"
+    elsif t.match("Q")
+      dealers_hand_value << "10"
+    elsif t.match("K")
+      dealers_hand_value << "10"
+    elsif t.match("A")
+      dealers_hand_value << "10"
+    else
+      dealers_hand_value << t
+  end
   end
 
+  dealers_hand_value_num = [] 
+
+  dealers_hand_value.each do |t|
+    dealers_hand_value_num << t.to_i
+  end
+
+  puts dealers_hand_value_num
   
 end
 
