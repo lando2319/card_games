@@ -135,18 +135,22 @@
 
   ### play the game
 
+  def flip_cards
+    if @accumulative_dealer_total.to_i > @accumulative_player_total.to_i 
+      puts @dealers_hand.to_s + "dealer wins with " + @accumulative_dealer_total.to_s
+    elsif @accumulative_dealer_total.to_i < @accumulative_player_total.to_i
+      puts @players_hand.to_s + "You win with " + @accumulative_player_total.to_s
+    else
+      puts "Dealer has " + @dealers_hand.to_s + "and you have " + @players_hand.to_s
+      puts "You have a push"
+    end
+  end
+
   def evaluate_game
     if @accumulative_dealer_total.to_i < 17
       take_a_hit_dealer
     else
-      if @accumulative_dealer_total.to_i > @accumulative_player_total.to_i 
-        puts @dealers_hand.to_s + "dealer wins with " + @accumulative_dealer_total.to_s
-      elsif @accumulative_dealer_total.to_i < @accumulative_player_total.to_i
-        puts @players_hand.to_s + "You win with " + @accumulative_player_total.to_s
-      else
-        puts "Dealer has " + @dealers_hand.to_s + "and you have " + @players_hand.to_s
-        puts "You have a push"
-      end
+    flip_cards
     end
   end
 
