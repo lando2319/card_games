@@ -137,11 +137,12 @@
 
   def flip_cards
     if @accumulative_dealer_total.to_i > 21
-      puts "You win the dealer has busted"
+      puts @dealers_hand.to_s + "You win the dealer has busted"
     elsif @accumulative_dealer_total.to_i > @accumulative_player_total.to_i 
       puts @dealers_hand.to_s + "dealer wins with " + @accumulative_dealer_total.to_s
     elsif @accumulative_dealer_total.to_i < @accumulative_player_total.to_i
       puts @players_hand.to_s + "You win with " + @accumulative_player_total.to_s
+      puts "Dealer had " + @dealers_hand.to_s
     else
       puts "Dealer has " + @dealers_hand.to_s + "and you have " + @players_hand.to_s
       puts "You have a push"
@@ -180,6 +181,7 @@
 
       if @accumulative_player_total > 21
         puts "you have busted with " + @accumulative_player_total.to_s 
+        abort
       elsif @accumulative_player_total < 21
         player_decision
       else
@@ -206,19 +208,19 @@
 
   ### testing area
 
-  puts "TESTING AREA"
-  puts "dealers hand"
-  puts @dealers_hand
-  puts @dealers_hand_value.inspect
-  puts @dealers_hand_value_num.inspect
-  puts @accumulative_dealer_total.inspect
-  
-  puts '---------'
-  puts "players hand"
-  puts @players_hand
-  puts @players_hand_value.inspect
-  puts @players_hand_value_num.inspect
-  puts @accumulative_player_total.inspect
+#  puts "TESTING AREA"
+#  puts "dealers hand"
+#  puts @dealers_hand
+#  puts @dealers_hand_value.inspect
+#  puts @dealers_hand_value_num.inspect
+#  puts @accumulative_dealer_total.inspect
+#  
+#  puts '---------'
+#  puts "players hand"
+#  puts @players_hand
+#  puts @players_hand_value.inspect
+#  puts @players_hand_value_num.inspect
+#  puts @accumulative_player_total.inspect
 
 
 
