@@ -106,6 +106,23 @@
 
 ### Game Logic
 
+  def initial_evaluation
+   if @accumulative_dealer_total.to_i == 21 && @accumulative_player_total.to_i != 21
+     puts @dealers_hand
+     puts "dealer has blackjack"
+     puts "you have " + @accumulative_player_total.to_s
+     abort
+   elsif @accumulative_dealer_total.to_i == 21 && @accumulative_player_total.to_i == 21
+     puts "PUSH both player and dealer have Blackjack"
+     abort
+   elsif @accumulative_dealer_total.to_i != 21 && @accumulative_player_total.to_i == 21
+     puts "You have a Blackjack"
+     puts @players_hand
+     abort
+   else
+   end
+  end
+
   dealer_filter
   get_value_dealer
   dealer_hand_total
@@ -114,51 +131,91 @@
   get_value_player
   player_hand_total
 
-  if @accumulative_dealer_total == 21 && @accumulative_player_total != 21
-    puts @dealers_hand
-    puts "dealer has blackjack"
-    puts "you have " + @accumulative_player_total.to_s
-    abort
-  end
+  initial_evaluation
 
-  if @accumulative_dealer_total == 21 && @accumulative_player_total == 21
-    puts "PUSH both player and dealer have Blackjack"
-    abort
-  end
+  ### play the game
 
-  if @accumulative_dealer_total != 21 && @accumulative_player_total == 21
-    puts "You have a Blackjack"
-    puts @players_hand
-    abort
-  end
-
-  puts "What would you like to do now?"
-  puts "'H' for Hit || 'S' for Stand"
-  puts "you have " + @players_hand.to_s
-  puts " or " + @accumulative_player_total.to_s
-  stance_response = gets.chomp.upcase
-
-  def take_a_hit_player
-    @players_hand << @stack_of_cards.pop
-    puts "your card is " + @players_hand.last
-    @players_hand_value = []
-    player_filter
-    @players_hand_value_num = []
-
-    get_value_player
-    player_hand_total
-
-    if @accumulative_player_total > 21
-      puts "you have busted with " + @accumulative_player_total.to_s 
+  def evaluate_game
+    if @accumulative_dealer_total.to_i < 17
+      take_a_hit_dealer
+    else
+      if @accumulative_dealer_total.to_i > @accumulative_player_total.to_i 
+        puts @dealers_hand.to_s + "dealer wins with " + @accumulative_dealer_total.to_s
+      elsif @accumulative_dealer_total.to_i < @accumulative_player_total.to_i
+        puts @players_hand.to_s + "You win with " + @accumulative_player_total.to_s
+      else
+        puts "Dealer has " + @dealers_hand.to_s + "and you have " + @players_hand.to_s
+        puts "You have a push"
+      end
     end
   end
 
-  if stance_response == "H"
-    take_a_hit_player
+  def take_a_hit_dealer
+     @dealers_hand << @stack_of_cards.pop
+     @dealers_hand_value = []
+     dealer_filter
+     @dealers_hand_value_num = []
+
+     get_value_dealer
+     dealer_hand_total
+     evaluate_game
+  end
+  
+  def take_a_hit_player
+      @players_hand << @stack_of_cards.pop
+      puts "your card is " + @players_hand.last
+      @players_hand_value = []
+      player_filter
+      @players_hand_value_num = []
+
+      get_value_player
+      player_hand_total
+
+      if @accumulative_player_total > 21
+        puts "you have busted with " + @accumulative_player_total.to_s 
+      elsif @accumulative_player_total < 21
+        player_decision
+      else
+        evaluate_game
+      end
+  end
+
+  def player_decision
+   puts "What would you like to do now?"
+   puts "'H' for Hit || 'S' for Stand"
+   puts "you have " + @players_hand.to_s
+   puts " or " + @accumulative_player_total.to_s
+   stance_response = gets.chomp.upcase
+   if stance_response == "H"
+     take_a_hit_player
+   else
+    evaluate_game
+   end
   end
 
 
-### testing area
+#  if @accumulative_dealer_total.to_i != 21 && @accumulative_player_total.to_i
+    player_decision
+#  end
+
+
+#    end
+#    if @accumulative_player_total.to_i > @accumulative_dealer_total.to_i
+#      puts "You have " + @accumulative_player_total.to_s
+#      puts "The Dealer has " + @accumulative_dealer_total.to_s
+#      puts "You Win"
+#    elsif @accumulative_player_total.to_i < @accumulative_dealer_total.to_i
+#      puts "You have " + @accumulative_player_total.to_s
+#      puts "The Dealer has " + @accumulative_dealer_total.to_s
+#    elsif @accumulative_player_total.to_i == @accumulative_dealer_total.to_i
+#      puts "You got a push"
+#    end
+
+
+
+
+  
+  ### testing area
 
 
   puts "TESTING AREA"
