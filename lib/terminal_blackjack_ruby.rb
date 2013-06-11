@@ -1,29 +1,31 @@
   puts "============================="
   puts "Welcome to Terminal Blackjack"
  
-  stack_of_cards = [
+  @stack_of_cards = [
    "2 D", "3 D", "4 D", "5 D", "6 D", "7 D", "8 D", "9 D", "10 D", "J D", "Q D", "K D", "A D",
    "2 H", "3 H", "4 H", "5 H", "6 H", "7 H", "8 H", "9 H", "10 H", "J H", "Q H", "K H", "A H",
    "2 C", "3 C", "4 C", "5 C", "6 C", "7 C", "8 C", "9 C", "10 C", "J C", "Q C", "K C", "A C",
    "2 S", "3 S", "4 S", "5 S", "6 S", "7 S", "8 S", "9 S", "10 S", "J S", "Q S", "K S", "A S"
   ]
-   stack_of_cards = stack_of_cards.shuffle
+   @stack_of_cards = @stack_of_cards.shuffle
  
   @dealers_hand = []
   @players_hand =[]
  
-  @players_hand << stack_of_cards.pop
-  @dealers_hand << stack_of_cards.pop
+  @players_hand << @stack_of_cards.pop
+  @dealers_hand << @stack_of_cards.pop
  
   puts "dealer is showing a " + @dealers_hand.to_s
  
-  @players_hand << stack_of_cards.pop
-  @dealers_hand << stack_of_cards.pop
+  @players_hand << @stack_of_cards.pop
+  @dealers_hand << @stack_of_cards.pop
   puts "-------------------------"
 
   @dealer_aces = 0
   @dealers_hand_value = []
   
+  #@dealers_hand = ["A S", "K C"]
+
   def dealer_filter
     @dealers_hand.each do |t|
       if t.match("10")
@@ -65,6 +67,8 @@
 
   @player_aces = 0
   @players_hand_value = []
+
+  #@players_hand = ["A S", "10 D"]
 
   def player_filter
     @players_hand.each do |t|
@@ -110,8 +114,54 @@
   get_value_player
   player_hand_total
 
+  if @accumulative_dealer_total == 21 && @accumulative_player_total != 21
+    puts @dealers_hand
+    puts "dealer has blackjack"
+    puts "you have " + @accumulative_player_total.to_s
+    abort
+  end
+
+  if @accumulative_dealer_total == 21 && @accumulative_player_total == 21
+    puts "PUSH both player and dealer have Blackjack"
+    abort
+  end
+
+  if @accumulative_dealer_total != 21 && @accumulative_player_total == 21
+    puts "You have a Blackjack"
+    puts @players_hand
+    abort
+  end
+
+  puts "What would you like to do now?"
+  puts "'H' for Hit || 'S' for Stand"
+  puts "you have " + @players_hand.to_s
+  puts " or " + @accumulative_player_total.to_s
+  stance_response = gets.chomp.upcase
+
+  def take_a_hit_player
+    @players_hand << @stack_of_cards.pop
+    puts "your card is " + @players_hand.last
+    @players_hand_value = []
+    player_filter
+    @players_hand_value_num = []
+
+    get_value_player
+    player_hand_total
+
+    if @accumulative_player_total > 21
+      puts "you have busted with " + @accumulative_player_total.to_s 
+    end
+  end
+
+  if stance_response == "H"
+    take_a_hit_player
+  end
+
+
 ### testing area
 
+
+  puts "TESTING AREA"
   puts "dealers hand"
   puts @dealers_hand
   puts @dealers_hand_value.inspect
@@ -128,27 +178,6 @@
 
 
 
-
-#  if dealers_hand_value_num_actual == 21
-#    puts "dealer has blackjack"
-#    abort
-#  end
-#
-#  puts "What would you like to do now?"
-#  puts "'H' for Hit || 'S' for Stand"
-#  puts "you have " + players_hand.to_s
-#  puts " or " + players_hand_value_num_actual.to_s
-#  stance_response = gets.chomp.upcase
-#  
-#  @clearing_house_num = []
-#  @stack_of_cards = stack_of_cards
-# 
-# 
-# if stance_response == "H"
-#    take_a_hit_player
-#  end
-#
-#  puts "you now have a total of " + players_hand_value_num_actual.to_s
 
 
 
