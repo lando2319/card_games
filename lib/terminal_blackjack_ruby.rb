@@ -96,7 +96,7 @@
   @clearing_house_num = []
   @stack_of_cards = stack_of_cards
  
- def take_a_hit
+ def take_a_hit_player
   players_hand_value_num_actual = []
   players_hand_value_num_actual << @stack_of_cards.pop
   puts "your card is a " + players_hand_value_num_actual.to_s
@@ -118,7 +118,7 @@
  end
  
  if stance_response == "H"
-    take_a_hit
+    take_a_hit_player
   end
 
   @clearing_house_num.each do |t|
@@ -130,6 +130,48 @@
   if players_hand_value_num_actual > 21
     puts "you have busted"
   end
+
+
+  if dealers_hand_value_num_actual > 16 && dealers_hand_value_num_actual > players_hand_value_num_actual
+    puts "dealer has " + dealers_hand_value_num_actual.to_s
+    puts "dealer wins"
+    abort
+  end
+
+
+
+  @clearing_house_num = []
+ def take_a_hit_dealer
+  dealers_hand_value_num_actual = []
+  dealers_hand_value_num_actual << @stack_of_cards.pop
+  dealers_hand_value_num_actual.each do |t|  
+  if t.match("10")
+    @clearing_house_num << "10"
+  elsif t.match("J")
+    @clearing_house_num << "10"
+  elsif t.match("Q")
+    @clearing_house_num << "10"
+  elsif t.match("K")
+    @clearing_house_num << "10"
+  elsif t.match("A")
+    @clearing_house_num << "11"
+  else 
+    @clearing_house_num << t
+  end  
+ end
+ end
+
+
+  if dealers_hand_value_num_actual < 16
+    take_a_hit_dealer
+  end
+
+  puts @clearing_house_num
+
+
+
+
+
 
 
 
