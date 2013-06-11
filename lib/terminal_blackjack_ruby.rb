@@ -149,7 +149,9 @@
   end
 
   def evaluate_game
-    if @accumulative_dealer_total.to_i < 17
+    if @accumulative_player_total > 21
+      abort
+    elsif @accumulative_dealer_total.to_i < 17
       take_a_hit_dealer
     else
     end
@@ -203,7 +205,6 @@
   flip_cards
 
   ### testing area
-
 
   puts "TESTING AREA"
   puts "dealers hand"
