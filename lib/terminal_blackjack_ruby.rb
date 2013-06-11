@@ -21,7 +21,7 @@
   dealers_hand << stack_of_cards.pop
   puts "-------------------------"
 
-
+  dealer_aces = 0
   dealers_hand_value = []
   
   dealers_hand.each do |t|
@@ -35,6 +35,7 @@
       dealers_hand_value << "10"
     elsif t.match("A")
       dealers_hand_value << "11"
+      dealer_aces = dealer_aces + 1
     else
       dealers_hand_value << t
   end
@@ -52,7 +53,7 @@
 
   #PLAYERS LOGIC
 
-
+  player_aces = 0
   players_hand_value = []
   
   players_hand.each do |t|
@@ -66,6 +67,7 @@
       players_hand_value << "10"
     elsif t.match("A")
       players_hand_value << "11"
+      player_aces = player_aces + 1
     else
       players_hand_value << t
   end
@@ -79,8 +81,8 @@
 
   players_hand_value_num_actual = []
   players_hand_value_num_actual = players_hand_value_num.inject(:+)
-  
-  if dealers_hand_value_num == 21
+
+  if dealers_hand_value_num_actual == 21
     puts "dealer has blackjack"
     abort
   end
@@ -97,6 +99,7 @@
  def take_a_hit
   players_hand_value_num_actual = []
   players_hand_value_num_actual << @stack_of_cards.pop
+  puts "your card is a " + players_hand_value_num_actual.to_s
   players_hand_value_num_actual.each do |t|  
   if t.match("10")
     @clearing_house_num << "10"
@@ -118,11 +121,17 @@
     take_a_hit
   end
 
-  puts @clearing_house_num
-
   @clearing_house_num.each do |t|
     players_hand_value_num_actual = players_hand_value_num_actual + t.to_i
   end
 
-  puts players_hand_value_num_actual
+  puts "you now have a total of " + players_hand_value_num_actual.to_s
+
+  if players_hand_value_num_actual > 21
+    puts "you have busted"
+  end
+
+
+
+
 
