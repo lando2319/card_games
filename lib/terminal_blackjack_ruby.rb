@@ -136,7 +136,9 @@
   ### play the game
 
   def flip_cards
-    if @accumulative_dealer_total.to_i > @accumulative_player_total.to_i 
+    if @accumulative_dealer_total.to_i > 21
+      puts "You win the dealer has busted"
+    elsif @accumulative_dealer_total.to_i > @accumulative_player_total.to_i 
       puts @dealers_hand.to_s + "dealer wins with " + @accumulative_dealer_total.to_s
     elsif @accumulative_dealer_total.to_i < @accumulative_player_total.to_i
       puts @players_hand.to_s + "You win with " + @accumulative_player_total.to_s
@@ -150,7 +152,6 @@
     if @accumulative_dealer_total.to_i < 17
       take_a_hit_dealer
     else
-    flip_cards
     end
   end
 
@@ -198,27 +199,9 @@
   end
 
 
-#  if @accumulative_dealer_total.to_i != 21 && @accumulative_player_total.to_i
-    player_decision
-#  end
+  player_decision
+  flip_cards
 
-
-#    end
-#    if @accumulative_player_total.to_i > @accumulative_dealer_total.to_i
-#      puts "You have " + @accumulative_player_total.to_s
-#      puts "The Dealer has " + @accumulative_dealer_total.to_s
-#      puts "You Win"
-#    elsif @accumulative_player_total.to_i < @accumulative_dealer_total.to_i
-#      puts "You have " + @accumulative_player_total.to_s
-#      puts "The Dealer has " + @accumulative_dealer_total.to_s
-#    elsif @accumulative_player_total.to_i == @accumulative_dealer_total.to_i
-#      puts "You got a push"
-#    end
-
-
-
-
-  
   ### testing area
 
 
