@@ -68,7 +68,7 @@
   @player_aces = 0
   @players_hand_value = []
 
-  @players_hand = ["A S", "4 D"]
+#  @players_hand = ["A S", "A D"]
 
   def player_filter
     @players_hand.each do |t|
