@@ -68,7 +68,7 @@
   @player_aces = 0
   @players_hand_value = []
 
-  #@players_hand = ["A S", "10 D"]
+  @players_hand = ["A S", "4 D"]
 
   def player_filter
     @players_hand.each do |t|
@@ -179,9 +179,20 @@
       get_value_player
       player_hand_total
 
-      if @accumulative_player_total > 21
+      if @accumulative_player_total > 21 && @player_aces == 0
         puts "you have busted with " + @accumulative_player_total.to_s 
         abort
+      elsif @accumulative_player_total > 21 && @player_aces > 0
+        @player_aces = @player_aces - 1
+        @accumulative_player_total = @accumulative_player_total.to_i - 10
+        if @accumulative_player_total > 21
+          puts "you have busted with " + @accumulative_player_total.to_s
+          abort
+        elsif @accumulative_player_total == 21
+          evaluate_game
+        else
+          player_decision
+        end
       elsif @accumulative_player_total < 21
         player_decision
       else
@@ -208,21 +219,23 @@
 
   ### testing area
 
-#  puts "TESTING AREA"
-#  puts "dealers hand"
-#  puts @dealers_hand
-#  puts @dealers_hand_value.inspect
-#  puts @dealers_hand_value_num.inspect
-#  puts @accumulative_dealer_total.inspect
-#  
-#  puts '---------'
-#  puts "players hand"
-#  puts @players_hand
-#  puts @players_hand_value.inspect
-#  puts @players_hand_value_num.inspect
-#  puts @accumulative_player_total.inspect
+  puts "TESTING AREA"
+  puts "dealers hand"
+  puts @dealers_hand
+  puts @dealers_hand_value.inspect
+  puts @dealers_hand_value_num.inspect
+  puts @accumulative_dealer_total.inspect
+  
+  puts '---------'
+  puts "players hand"
+  puts @players_hand
+  puts @players_hand_value.inspect
+  puts @players_hand_value_num.inspect
+  puts @accumulative_player_total.inspect
 
-
+  puts "aces"
+  puts @dealer_aces
+  puts @player_aces
 
 
 
