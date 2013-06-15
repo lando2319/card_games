@@ -9,10 +9,10 @@
 
 ### For Testing Aces
 #  @stack_of_cards = [
-#  "A D", "A D",
-#  "A H", "A H",
-#  "A C", "A C",
-#  "A S", "A S"
+#  "A D", "A D", "A D", "A D",
+#  "A H", "A H", "A H", "A H",
+#  "A C", "A C", "A C", "A C",
+#  "A S", "A S", "A S", "A S"
 #  ]
 
   @stack_of_cards = @stack_of_cards.shuffle
@@ -84,6 +84,7 @@
     if @accumulative_dealer_total.to_i > 21 && @dealer_aces > 0
       @dealer_aces = @dealer_aces - 1
       @accumulative_dealer_total = @accumulative_dealer_total - 10
+      @dealers_hand_value_num << -10
     end
   end
   
@@ -104,7 +105,7 @@
     if @accumulative_player_total.to_i > 21 && @player_aces > 0
       @player_aces = @player_aces - 1
       @accumulative_player_total = @accumulative_player_total - 10
-      @dealers_hand_value_num << -10
+      @players_hand_value_num << -10
     end
   end
 
@@ -180,7 +181,7 @@
 
   def evaluate_game
     if @accumulative_dealer_total > 21
-      puts "you have won. The dealer has busted with " + @dealers_hand + " or " + @accumulative_dealer_total.to_s
+      puts "you have won. The dealer has busted with " + @dealers_hand.to_s + " or " + @accumulative_dealer_total.to_s
     elsif @accumulative_dealer_total < 17
       take_a_hit_dealer
     else
@@ -235,20 +236,20 @@
 
   ### testing area
 
-#  puts "TESTING AREA"
-#  puts "dealers hand"
-#  puts @dealers_hand
-#  puts @dealers_hand_value.inspect
-#  puts @dealers_hand_value_num.inspect
-#  puts @accumulative_dealer_total.inspect
-#  
-#  puts '---------'
-#  puts "players hand"
-#  puts @players_hand
-#  puts @players_hand_value.inspect
-#  puts @players_hand_value_num.inspect
-#  puts @accumulative_player_total.inspect
-#
-#  puts "aces"
-#  puts @dealer_aces
-#  puts @player_aces
+  puts "TESTING AREA"
+  puts "dealers hand"
+  puts @dealers_hand
+  puts @dealers_hand_value.inspect
+  puts @dealers_hand_value_num.inspect
+  puts @accumulative_dealer_total.inspect
+  
+  puts '---------'
+  puts "players hand"
+  puts @players_hand
+  puts @players_hand_value.inspect
+  puts @players_hand_value_num.inspect
+  puts @accumulative_player_total.inspect
+
+  puts "aces"
+  puts @dealer_aces
+  puts @player_aces
