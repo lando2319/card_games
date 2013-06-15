@@ -236,20 +236,20 @@
 
   ### testing area
 
-  puts "TESTING AREA"
-  puts "dealers hand"
-  puts @dealers_hand
-  puts @dealers_hand_value.inspect
-  puts @dealers_hand_value_num.inspect
-  puts @accumulative_dealer_total.inspect
-  
-  puts '---------'
-  puts "players hand"
-  puts @players_hand
-  puts @players_hand_value.inspect
-  puts @players_hand_value_num.inspect
-  puts @accumulative_player_total.inspect
-
-  puts "aces"
-  puts @dealer_aces
-  puts @player_aces
+#  puts "TESTING AREA"
+#  puts "dealers hand"
+#  puts @dealers_hand
+#  puts @dealers_hand_value.inspect
+#  puts @dealers_hand_value_num.inspect
+#  puts @accumulative_dealer_total.inspect
+#  
+#  puts '---------'
+#  puts "players hand"
+#  puts @players_hand
+#  puts @players_hand_value.inspect
+#  puts @players_hand_value_num.inspect
+#  puts @accumulative_player_total.inspect
+#
+#  puts "aces"
+#  puts @dealer_aces
+#  puts @player_aces
