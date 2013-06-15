@@ -201,7 +201,7 @@
     if @accumulative_player_total.to_i > 21
       puts "You have busted with " + @accumulative_player_total.to_s
       puts "The Dealer had a " + @dealers_hand.to_s
-    elsif @accumulative_dealer_total.to_i == 21
+    elsif @accumulative_player_total.to_i == 21
       evaluate_game
     else 
       player_decision
