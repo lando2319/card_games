@@ -152,7 +152,7 @@
       puts "you have " + @players_hand.to_s + " or " + @accumulative_player_total.to_s
       abort
     elsif @accumulative_dealer_total.to_i == 21 && @accumulative_player_total.to_i == 21
-      puts "PUSH both player and dealer have Blackjack"
+      puts "PUSH both player and dealer have Blackjack" + " you had " + @players_hand.to_s
       abort
     elsif @accumulative_dealer_total.to_i != 21 && @accumulative_player_total.to_i == 21
       puts "You have a Blackjack"
