@@ -68,7 +68,12 @@
   @player_aces = 0
   @players_hand_value = []
 
-#  @players_hand = ["A S", "A D"]
+  @players_hand = ["A S", "A D"]
+
+  def player_hand_total
+    @accumulative_player_total = @players_hand_value_num.inject(:+)
+    aces_evaluation_player
+  end
 
   def player_filter
     @players_hand.each do |t|
@@ -100,9 +105,14 @@
 
   @accumulative_player_total = []
 
-  def player_hand_total
-    @accumulative_player_total = @players_hand_value_num.inject(:+)
+
+  def aces_evaluation_player
+    if @accumulative_player_total.to_i > 21 && @player_aces > 0
+      @player_aces = @player_aces - 1
+      @accumulative_player_total = @accumulative_player_total - 10
+    end
   end
+
 
 ### Game Logic
 
@@ -178,27 +188,22 @@
 
       get_value_player
       player_hand_total
-
-      if @accumulative_player_total > 21 && @player_aces == 0
-        puts "you have busted with " + @accumulative_player_total.to_s 
-        abort
-      elsif @accumulative_player_total > 21 && @player_aces > 0
-        @player_aces = @player_aces - 1
-        @accumulative_player_total = @accumulative_player_total.to_i - 10
-        if @accumulative_player_total > 21
-          puts "you have busted with " + @accumulative_player_total.to_s
-          abort
-        elsif @accumulative_player_total == 21
-          evaluate_game
-        else
-          player_decision
-        end
-      elsif @accumulative_player_total < 21
-        player_decision
-      else
-        evaluate_game
-      end
   end
+
+
+
+        def read_cards_player
+          if @accumulative_player_total > 21
+            aces_eval_player
+            puts "you have busted with " + @accumulative_player_total.to_s 
+            abort
+          elsif @accumulative_player_total < 21
+            player_decision
+          else
+            evaluate_game
+          end
+          read_cards_player
+        end
 
   def player_decision
    puts "What would you like to do now?"
@@ -236,8 +241,6 @@
   puts "aces"
   puts @dealer_aces
   puts @player_aces
-
-
 
 
 
