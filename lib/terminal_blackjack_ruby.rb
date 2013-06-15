@@ -21,12 +21,7 @@
   @players_hand =[]
   
   puts "============================="
-  puts "Welcome to Terminal Blackjack"
- 
-  @players_hand << @stack_of_cards.pop
-  @dealers_hand << @stack_of_cards.pop
- 
-  puts "dealer is showing a " + @dealers_hand.to_s
+  puts "Welcome to Terminal Blackjack"  
 
   @dealers_hand_value = []
   @players_hand_value = []
@@ -92,24 +87,11 @@
     end
   end
   
-  dealer_filter
-  player_filter
-  get_value_dealer
-  dealer_hand_total
-  aces_evaluation_dealer
-  @dealers_hand << @stack_of_cards.pop
-  dealer_filter
-
-  get_value_dealer
-  dealer_hand_total
-  aces_evaluation_dealer
 
   @players_hand_value_num = [] 
 
   def get_value_player
-   @players_hand_value.each do |t|
-     @players_hand_value_num << t.to_i
-   end
+     @players_hand_value_num << @players_hand_value.last.to_i
   end
 
   @accumulative_player_total = []
@@ -125,14 +107,41 @@
     end
   end
 
+### First Card
+
   @players_hand << @stack_of_cards.pop
+  @dealers_hand << @stack_of_cards.pop
+ 
+  puts "dealer is showing a " + @dealers_hand.to_s
+ 
+  dealer_filter
   player_filter
+  
+  get_value_dealer
+  dealer_hand_total
+  aces_evaluation_dealer
 
   get_value_player
   player_hand_total
   aces_evaluation_player
+
+### Second Card
+
+  @players_hand << @stack_of_cards.pop
+  @dealers_hand << @stack_of_cards.pop
+
+  dealer_filter
+  player_filter
   
-  #Hit or Stay
+  get_value_dealer
+  dealer_hand_total
+  aces_evaluation_dealer
+
+  get_value_player
+  player_hand_total
+  aces_evaluation_player
+
+### Hit or Stay
 
   def initial_evaluation
     if @accumulative_dealer_total.to_i == 21 && @accumulative_player_total.to_i != 21
@@ -153,15 +162,32 @@
 
   initial_evaluation
 
-  ### BELOW NEEDS FIXIN'
+### Evaluate Game
+
+  def evaluate_game
+  end
+
+### Moves for the Player
+  
+  def over_20_player
+    if @accumulative_player_total.to_i > 21
+      puts "You have busted with " + @accumulative_player_total.to_s
+      puts "The Dealer had a " + @dealers_hand.to_s
+    elsif @accumulative_dealer_total.to_i == 21
+      evaluate_game
+    else 
+      player_decision
+    end
+  end
 
   def take_a_hit_player
       @players_hand << @stack_of_cards.pop
       puts "your card is " + @players_hand.last
       player_filter
-      get_value_dealer
+      get_value_player
       player_hand_total
       aces_evaluation_player
+      over_20_player
   end
 
   def player_decision
