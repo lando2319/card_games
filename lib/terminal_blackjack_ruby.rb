@@ -162,9 +162,34 @@
 
   initial_evaluation
 
+### Moves for the Dealer
+
+  def take_a_hit_dealer
+     @dealers_hand << @stack_of_cards.pop
+     dealer_filter
+
+     get_value_dealer
+     dealer_hand_total
+     aces_evaluation_dealer
+     evaluate_game
+  end
+
 ### Evaluate Game
 
   def evaluate_game
+    if @accumulative_dealer_total > 21
+      puts "you have won. The dealer has busted with " + @accumulative_dealer_total.to_s
+    elsif @accumulative_dealer_total < 17
+      take_a_hit_dealer
+    else
+      if @accumulative_dealer_total.to_i > @accumulative_player_total.to_i
+        puts "You Lost the Dealer had " + @accumulative_dealer_total.to_s + " and you had " + @accumulative_player_total.to_s
+      elsif @accumulative_dealer_total.to_i < @accumulative_player_total.to_i
+        puts "You Won the Dealer had " + @accumulative_dealer_total.to_s + " and you had " + @accumulative_player_total.to_s
+      else @accumulative_dealer_total == @accumulative_player_total
+        puts "You have a push. The dealer had " + @accumulative_dealer_total.to_s + " and you have " + @accumulative_player_total.to_s
+      end
+    end
   end
 
 ### Moves for the Player
@@ -250,16 +275,6 @@
 #    end
 #  end
 #
-#  def take_a_hit_dealer
-#     @dealers_hand << @stack_of_cards.pop
-#     @dealers_hand_value = []
-#     dealer_filter
-#     @dealers_hand_value_num = []
-#
-#     get_value_dealer
-#     dealer_hand_total
-#     evaluate_game
-#  end
 #  
 #
 #
