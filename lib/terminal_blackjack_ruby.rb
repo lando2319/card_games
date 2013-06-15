@@ -143,7 +143,7 @@
   player_hand_total
   aces_evaluation_player
 
-### Hit or Stay
+### Dealer checks the whole card
 
   def initial_evaluation
     if @accumulative_dealer_total.to_i == 21 && @accumulative_player_total.to_i != 21
