@@ -104,6 +104,7 @@
     if @accumulative_player_total.to_i > 21 && @player_aces > 0
       @player_aces = @player_aces - 1
       @accumulative_player_total = @accumulative_player_total - 10
+      @dealers_hand_value_num << -10
     end
   end
 
@@ -179,7 +180,7 @@
 
   def evaluate_game
     if @accumulative_dealer_total > 21
-      puts "you have won. The dealer has busted with " + @accumulative_dealer_total.to_s
+      puts "you have won. The dealer has busted with " + @dealers_hand + " or " + @accumulative_dealer_total.to_s
     elsif @accumulative_dealer_total < 17
       take_a_hit_dealer
     else
@@ -188,7 +189,7 @@
       elsif @accumulative_dealer_total.to_i < @accumulative_player_total.to_i
         puts "You Won the Dealer has " + @dealers_hand.to_s + " or " + @accumulative_dealer_total.to_s + " and you had " + @accumulative_player_total.to_s
       else @accumulative_dealer_total == @accumulative_player_total
-        puts "You have a push. The dealer had " + @accumulative_dealer_total.to_s + " and you have " + @accumulative_player_total.to_s
+        puts "You have a push. The dealer has " + @dealers_hand.to_s + " or " + @accumulative_dealer_total.to_s + " and you have " + @players_hand.to_s + " or " + @accumulative_player_total.to_s
       end
     end
   end
