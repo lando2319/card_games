@@ -147,7 +147,7 @@
     if @accumulative_dealer_total.to_i == 21 && @accumulative_player_total.to_i != 21
       puts @dealers_hand
       puts "dealer has blackjack"
-      puts "you have " + @accumulative_player_total.to_s
+      puts "you have " + @players_hand.to_s + " or " + @accumulative_player_total.to_s
       abort
     elsif @accumulative_dealer_total.to_i == 21 && @accumulative_player_total.to_i == 21
       puts "PUSH both player and dealer have Blackjack"
@@ -165,7 +165,8 @@
 ### Moves for the Dealer
 
   def take_a_hit_dealer
-     @dealers_hand << @stack_of_cards.pop
+    puts "Dealer has " + @dealers_hand.to_s + " Dealer is taking a hit ..."
+    @dealers_hand << @stack_of_cards.pop
      dealer_filter
 
      get_value_dealer
@@ -183,9 +184,9 @@
       take_a_hit_dealer
     else
       if @accumulative_dealer_total.to_i > @accumulative_player_total.to_i
-        puts "You Lost the Dealer had " + @accumulative_dealer_total.to_s + " and you had " + @accumulative_player_total.to_s
+        puts "You Lost the Dealer has " + @dealers_hand.to_s + " or " + @accumulative_dealer_total.to_s + " and you had " + @accumulative_player_total.to_s
       elsif @accumulative_dealer_total.to_i < @accumulative_player_total.to_i
-        puts "You Won the Dealer had " + @accumulative_dealer_total.to_s + " and you had " + @accumulative_player_total.to_s
+        puts "You Won the Dealer has " + @dealers_hand.to_s + " or " + @accumulative_dealer_total.to_s + " and you had " + @accumulative_player_total.to_s
       else @accumulative_dealer_total == @accumulative_player_total
         puts "You have a push. The dealer had " + @accumulative_dealer_total.to_s + " and you have " + @accumulative_player_total.to_s
       end
@@ -233,73 +234,20 @@
 
   ### testing area
 
-  puts "TESTING AREA"
-  puts "dealers hand"
-  puts @dealers_hand
-  puts @dealers_hand_value.inspect
-  puts @dealers_hand_value_num.inspect
-  puts @accumulative_dealer_total.inspect
-  
-  puts '---------'
-  puts "players hand"
-  puts @players_hand
-  puts @players_hand_value.inspect
-  puts @players_hand_value_num.inspect
-  puts @accumulative_player_total.inspect
-
-  puts "aces"
-  puts @dealer_aces
-  puts @player_aces
-  
-#
-#  def flip_cards
-#    if @accumulative_dealer_total.to_i > 21
-#      puts @dealers_hand.to_s + "You win the dealer has busted"
-#    elsif @accumulative_dealer_total.to_i > @accumulative_player_total.to_i 
-#      puts @dealers_hand.to_s + "dealer wins with " + @accumulative_dealer_total.to_s
-#    elsif @accumulative_dealer_total.to_i < @accumulative_player_total.to_i
-#      puts @players_hand.to_s + "You win with " + @accumulative_player_total.to_s
-#      puts "Dealer had " + @dealers_hand.to_s
-#    else
-#      puts "Dealer has " + @dealers_hand.to_s + "and you have " + @players_hand.to_s
-#      puts "You have a push"
-#    end
-#  end
-#
-#  def evaluate_game
-#    if @accumulative_player_total > 21
-#      abort
-#    elsif @accumulative_dealer_total.to_i < 17
-#      take_a_hit_dealer
-#    else
-#    end
-#  end
-#
+#  puts "TESTING AREA"
+#  puts "dealers hand"
+#  puts @dealers_hand
+#  puts @dealers_hand_value.inspect
+#  puts @dealers_hand_value_num.inspect
+#  puts @accumulative_dealer_total.inspect
 #  
+#  puts '---------'
+#  puts "players hand"
+#  puts @players_hand
+#  puts @players_hand_value.inspect
+#  puts @players_hand_value_num.inspect
+#  puts @accumulative_player_total.inspect
 #
-#
-#
-#        def read_cards_player
-#          if @accumulative_player_total > 21
-#            aces_eval_player
-#            puts "you have busted with " + @accumulative_player_total.to_s 
-#            abort
-#          elsif @accumulative_player_total < 21
-#            player_decision
-#          else
-#            evaluate_game
-#          end
-#          read_cards_player
-#        end
-#
-#
-#
-#  player_decision
-#  flip_cards
-#
-#
-#
-#
-#
-#
-#
+#  puts "aces"
+#  puts @dealer_aces
+#  puts @player_aces
