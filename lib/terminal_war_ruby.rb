@@ -27,7 +27,18 @@
 
   @players_hand_value = []
 
+  def cards_left
+    if @dealers_hand.count < 4 
+      puts "you lose"
+      abort
+    elsif @players_hand.count < 4
+      puts "you win"
+      abort
+    end
+  end
+
   def player_filter
+    cards_left
     @player_clearing_house = @players_hand.first
       if @player_clearing_house.match("10")
         @players_hand_value << "10"
@@ -47,23 +58,25 @@
   @dealers_hand_value = []
 
   def dealer_filter
+    cards_left
     @dealer_clearing_house = @dealers_hand.first
-      if @dealer_clearing_house.match("10")
-        @dealers_hand_value << "10"
-      elsif @dealer_clearing_house.match("J")
-        @dealers_hand_value << "11"
-      elsif @dealer_clearing_house.match("Q")
-        @dealers_hand_value << "12"
-      elsif @dealer_clearing_house.match("K")
-        @dealers_hand_value << "13"
-      elsif @dealer_clearing_house.match("A")
-        @dealers_hand_value << "14"
-      else
-        @dealers_hand_value << @dealer_clearing_house
-      end
+    if @dealer_clearing_house.match("10")
+      @dealers_hand_value << "10"
+    elsif @dealer_clearing_house.match("J")
+      @dealers_hand_value << "11"
+    elsif @dealer_clearing_house.match("Q")
+      @dealers_hand_value << "12"
+    elsif @dealer_clearing_house.match("K")
+      @dealers_hand_value << "13"
+    elsif @dealer_clearing_house.match("A")
+      @dealers_hand_value << "14"
+    else
+      @dealers_hand_value << @dealer_clearing_house
+    end
   end
 
   def dealer_second_card_eval
+    cards_left
     @dealer_clearing_house = @dealers_hand.slice(1)
       if @dealer_clearing_house.match("10")
         @dealers_hand_value << "10"
@@ -81,6 +94,7 @@
   end
 
   def player_second_card_eval
+    cards_left
     @player_clearing_house = @players_hand.slice(1)
       if @player_clearing_house.match("10")
         @players_hand_value << "10"
@@ -100,41 +114,59 @@
   @clearinghouse_helper = []
 
   def this_means_war
+    cards_left
     player_second_card_eval
     dealer_second_card_eval
     if @dealers_hand_value.first.to_i > @players_hand_value.first.to_i
-      @dealers_hand << @players_hand.slice!(0)
-      @dealers_hand << @players_hand.slice!(0)
+      @clearinghouse_helper << @players_hand.slice!(0)
+      @clearinghouse_helper << @players_hand.slice!(0)
+      @clearinghouse_helper << @dealers_hand.slice!(0)
+      @clearinghouse_helper << @dealers_hand.slice!(0)
+      @clearinghouse_helper.each do |t|
+        @dealers_hand << t
+      end
+      @clearinghouse_helper = []
+      @dealers_hand_value = []
+      @players_hand_value = []
     elsif @dealers_hand_value.first.to_i < @players_hand_value.first.to_i
-      @players_hand << @dealers_hand.slice!(0)
-      @players_hand << @dealers_hand.slice!(0)
+      @clearinghouse_helper << @dealers_hand.slice!(0)
+      @clearinghouse_helper << @dealers_hand.slice!(0)
+      @clearinghouse_helper << @players_hand.slice!(0)
+      @clearinghouse_helper << @players_hand.slice!(0)
+      @clearinghouse_helper.each do |t|
+        @players_hand << t
+      end
+      @clearinghouse_helper = []
+      @dealers_hand_value = []
+      @players_hand_value = []
     else
       @clearinghouse_helper << @dealers_hand.slice!(0)
       @clearinghouse_helper << @dealers_hand.slice!(0)
       @clearinghouse_helper << @players_hand.slice!(0)
       @clearinghouse_helper << @players_hand.slice!(0)
+      @dealers_hand_value = []
+      @players_hand_value = []
       this_means_war
     end
   end
-
-
-
-
-
-
-
-
-
 
   def play_the_game
+  cards_left
   player_filter
   dealer_filter
+    puts @dealers_hand_value.inspect
+    puts "vs"
+    puts @players_hand_value.inspect
     if @dealers_hand_value.first.to_i > @players_hand_value.first.to_i
       @dealers_hand << @players_hand.slice!(0)
+      @dealers_hand << @dealers_hand.slice!(0)
+      puts "dealer wins"
       @dealers_hand_value = []
       @players_hand_value = []
     elsif @dealers_hand_value.first.to_i < @players_hand_value.first.to_i
+      puts "player wins"
       @players_hand << @dealers_hand.slice!(0)
+      @players_hand << @players_hand.slice!(0)
       @dealers_hand_value = []
       @players_hand_value = []
     else
@@ -144,14 +176,16 @@
     end
   end
 
-#  until @player_hand == 0 || @dealer_hand == 0
+  until @players_hand.count < 4 || @dealers_hand.count < 4
     play_the_game
-  #end
+  end
 
   puts @dealers_hand.count
   puts @players_hand.count
 
 
+  puts @dealers_hand.inspect
+  puts @players_hand.inspect
 
 
 
