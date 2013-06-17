@@ -117,11 +117,15 @@
     cards_left
     player_second_card_eval
     dealer_second_card_eval
+    puts @dealers_hand_value.inspect
+    puts "vs"
+    puts @players_hand_value.inspect
     if @dealers_hand_value.first.to_i > @players_hand_value.first.to_i
       @clearinghouse_helper << @players_hand.slice!(0)
       @clearinghouse_helper << @players_hand.slice!(0)
       @clearinghouse_helper << @dealers_hand.slice!(0)
       @clearinghouse_helper << @dealers_hand.slice!(0)
+      puts "dealer wins war"
       @clearinghouse_helper.each do |t|
         @dealers_hand << t
       end
@@ -133,6 +137,7 @@
       @clearinghouse_helper << @dealers_hand.slice!(0)
       @clearinghouse_helper << @players_hand.slice!(0)
       @clearinghouse_helper << @players_hand.slice!(0)
+      puts "player wins war"
       @clearinghouse_helper.each do |t|
         @players_hand << t
       end
@@ -146,6 +151,7 @@
       @clearinghouse_helper << @players_hand.slice!(0)
       @dealers_hand_value = []
       @players_hand_value = []
+      puts "THE WAR CONTINUES"
       this_means_war
     end
   end
@@ -170,6 +176,7 @@
       @dealers_hand_value = []
       @players_hand_value = []
     else
+      puts "tie, we are going to war"
       @dealers_hand_value = []
       @players_hand_value = []
       this_means_war
