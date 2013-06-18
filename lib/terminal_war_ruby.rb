@@ -189,12 +189,12 @@
 
   cards_left
 
-  puts @dealers_hand.count
-  puts @players_hand.count
-
-
-  puts @dealers_hand.inspect
-  puts @players_hand.inspect
+#  puts @dealers_hand.count
+#  puts @players_hand.count
+#
+#
+#  puts @dealers_hand.inspect
+#  puts @players_hand.inspect
 
 
 
