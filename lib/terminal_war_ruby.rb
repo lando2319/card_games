@@ -29,10 +29,10 @@
 
   def cards_left
     if @dealers_hand.count < 4 
-      puts "you lose"
+      puts "you win the game"
       abort
     elsif @players_hand.count < 4
-      puts "you win"
+      puts "you lose the game"
       abort
     end
   end
@@ -186,6 +186,8 @@
   until @players_hand.count < 4 || @dealers_hand.count < 4
     play_the_game
   end
+
+  cards_left
 
   puts @dealers_hand.count
   puts @players_hand.count
